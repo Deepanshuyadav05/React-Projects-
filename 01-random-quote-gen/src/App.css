@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* This kills the scrollbar entirely */
+}
+
+/* 1. Base Container: Sets the Dark Theme */
+.app-container {
+  background-color: #121212; /* Dark background */
+  color: #e0e0e0;            /* Light text color */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* Centers quote vertically */
+  align-items: center;       /* Centers quote horizontally */
+  position: relative;        /* Required to pin the heading and footer */
+  font-family: 'Inter', sans-serif;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* 2. Heading: Pinned to top-left */
+.main-heading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2rem;            /* Your requested padding */
+  margin: 0;
+  font-size: 1.5rem;
+  color: #bb86fc;           /* Accent color */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* 3. Quote Area: Centered content */
+.quote-wrapper {
+  text-align: center;
+  max-width: 700px;
+}
+
+.quote-text {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.author {
+  font-style: italic;
+  opacity: 0.7;
+  margin-bottom: 30px;
+}
+
+/* 4. Button: Centered followed by quote */
+.next-btn {
+  background-color: #bb86fc;
+  color: #000;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.next-btn:hover {
+  background-color: #a370f7;
+  transform: scale(1.05);
+}
+
+/* 5. Footer: Bottom center */
+.footer {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%); /* Perfectly centers absolute element */
+  font-size: 0.9rem;
+  opacity: 0.5;
+  margin: 0;
+}
+
+/*Loader*/
+.loader {
+  border: 16px solid #e0e0e0; /* Light grey */
+  border-top: 16px solid #a370f7; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
