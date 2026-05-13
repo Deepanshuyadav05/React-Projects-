@@ -5,8 +5,10 @@ import './App.css'
 function App() {
 
     const [currQuote, setCurrQuote] = useState('')
+    const [loader, setLoader] = useState(true)
 
     async function fetchQuote(){
+        setLoader(true);
         const randomPage = Math.floor(Math.random() * 30) + 1
         try {
             const apiUrl = `https://api.freeapi.app/api/v1/public/quotes?page=${randomPage}&limit=10`
@@ -21,6 +23,7 @@ function App() {
             console.log(error)
         } finally {
             console.log("finally executed")
+            setLoader(false)
         }
 
 
@@ -34,11 +37,15 @@ function App() {
       <div className="app-container">
         <h1 className="main-heading">Quote Generator</h1>
 
-        <div className="quote-wrapper">
-          <p className="quote-text">{currQuote.content}</p>
-          <p className="author">-{currQuote.author}</p>
-          <button onClick={fetchQuote} className="next-btn">Next Quote</button>
-        </div>
+          {loader ? <p className="loader"></p> : null}
+          {loader ? null :
+              <div className="quote-wrapper">
+                <p className="quote-text">{currQuote.content}</p>
+                <p className="author">-{currQuote.author}</p>
+                <button onClick={fetchQuote} className="next-btn">Next Quote</button>
+              </div>
+          }
+
 
 
         <p className="footer">Quotes don't work until u do</p>
