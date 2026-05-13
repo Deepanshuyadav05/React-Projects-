@@ -1,20 +1,47 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import './App.css'
 
+
 function App() {
-  const [count, setCount] = useState(0)
+
+    const [currQuote, setCurrQuote] = useState('')
+
+    async function fetchQuote(){
+        const randomPage = Math.floor(Math.random() * 30) + 1
+        try {
+            const apiUrl = `https://api.freeapi.app/api/v1/public/quotes?page=${randomPage}&limit=10`
+
+            const response = await fetch(apiUrl)
+            const result = await response.json()
+            const quoteArr = result.data.data
+            const randomIndex = Math.floor(Math.random() * quoteArr.length)
+            console.log(result.data.data)
+            setCurrQuote(quoteArr[randomIndex])
+        } catch (error) {
+            console.log(error)
+        } finally {
+            console.log("finally executed")
+        }
+
+
+    }
+
+    useEffect(() => {
+        fetchQuote()
+    }, [])
 
   return (
       <div className="app-container">
         <h1 className="main-heading">Quote Generator</h1>
 
         <div className="quote-wrapper">
-          <p className="quote-text">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, sunt!"</p>
-          <p className="author">- Author Name</p>
-          <button className="next-btn">Next Quote</button>
+          <p className="quote-text">{currQuote.content}</p>
+          <p className="author">-{currQuote.author}</p>
+          <button onClick={fetchQuote} className="next-btn">Next Quote</button>
         </div>
 
-        <p className="footer">Created by Deepanshu</p>
+
+        <p className="footer">Quotes don't work until u do</p>
       </div>
   )
 }
